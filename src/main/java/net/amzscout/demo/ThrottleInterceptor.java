@@ -97,11 +97,16 @@ public class ThrottleInterceptor extends HandlerInterceptorAdapter {
                 return true;
             }
 
-            Long head = queue.poll();
-            queue.add(now);
+            Long head = queue.peek();
             long goes_by = (now - head) / 1000 / 60;
 
-            return goes_by >= expire_after_minutes;
+            if(goes_by >= expire_after_minutes) {
+                queue.remove();
+                queue.add(now);
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
