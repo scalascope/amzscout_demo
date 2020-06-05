@@ -76,7 +76,7 @@ public class ThrottleInterceptor extends HandlerInterceptorAdapter {
         return xfHeader.split(",")[0];
     }
 
-
+    // here should be token-bucket algorithm
     private class RateLimiter {
 
         private long max_requests;
